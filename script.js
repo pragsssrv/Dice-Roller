@@ -132,27 +132,21 @@ function rollDice() {
 }
 
 function updateDie(dice, roll) {
+    // Clear previous content
     dice.innerHTML = '';
-    const dotConfigurations = getDotConfigurations(roll);
-    dotConfigurations.forEach(config => {
-        const dot = document.createElement('div');
-        dot.classList.add('dot');
-        dot.classList.add(config);
-        dice.appendChild(dot);
-    });
+    
+    // Add the number
+    dice.textContent = roll;
+    
+    // Add rolling animation
+    dice.classList.add('rolling');
+    
+    // Remove rolling animation after it completes
+    setTimeout(() => {
+        dice.classList.remove('rolling');
+    }, 1500);
 }
 
-function getDotConfigurations(number) {
-    const configurations = {
-        1: ['dot1'],
-        2: ['dot1', 'dot5'],
-        3: ['dot1', 'dot3', 'dot5'],
-        4: ['dot1', 'dot2', 'dot4', 'dot5'],
-        5: ['dot1', 'dot2', 'dot3', 'dot4', 'dot5'],
-        6: ['dot1', 'dot2', 'dot3', 'dot4', 'dot5', 'dot6']
-    };
-    return configurations[number] || [];
-}
 
 function updatePlayersScores() {
     const playersScoresDiv = document.getElementById('playersScores');
@@ -189,3 +183,5 @@ function resetGame() {
     players = [];
     currentPlayerIndex = 0;
 }
+const backgroundMusic = document.getElementById("backgroundMusic");
+backgroundMusic.volume = 0.5;

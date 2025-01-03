@@ -3,40 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dice Roller Game</title>
+    <title>Dice Roller Enhanced</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Background Video Styling */
+        .background-video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1; /* Keeps the video behind other content */
+        }
+
+        .background-video-container video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            filter: blur(10px);
+            opacity: 0.9;
+            object-fit: cover; /* Ensures the video covers the entire background */
+        }
+
+        /* Ensure content is visible over the video */
+        body {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
 </head>
 <body>
-    <div id="container">
-        <header>
-            <h1>Dice Roller Game</h1>
-            <button id="themeToggle">Toggle Dark/Light Mode</button>
-        </header>
-        
-        <div id="playerSetup">
-            <label for="numPlayers">Number of Players:</label>
-            <input type="number" id="numPlayers" min="2" max="6" placeholder="Enter number of players">
-            <div id="playerNames"></div>
-            
-            <label for="numDice">Number of Dice:</label>
-            <input type="number" id="numDice" min="1" max="4" placeholder="Enter number of dice">
-            
-            <label for="numSides">Number of Sides (min 6):</label>
-            <input type="number" id="numSides" min="6" placeholder="Enter number of sides">
-            
-            <button id="startGameButton">Start Game</button>
-        </div>
-        
-        <div id="game" class="hidden">
-            <div id="diceContainer"></div>
-            <button id="rollButton">Roll Dice</button>
-            <button id="resetGameButton">Reset Game</button>
-            
-            <div id="currentPlayer"></div>
-            <div id="playersScores"></div>
-            <div id="history"></div>
-        </div>
+    <!-- Background Video Section -->
+    <div class="background-video-container">
+        <video autoplay loop muted>
+            <source src="video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
     </div>
+
+    <div class="app-container">
+        <nav class="navbar">
+            <h1>Dice Roller</h1>
+            <button id="themeToggle" class="theme-toggle">
+                <span class="dark-icon">🌙</span>
+            </button>
+        </nav>
+
+        <main class="main-content">
+            <section id="playerSetup" class="setup-section">
+                <div class="input-group">
+                    <label for="numPlayers">Players (2-6)</label>
+                    <input type="number" id="numPlayers" min="2" max="6" placeholder="2">
+                </div>
+
+                <div id="playerNames" class="player-names"></div>
+
+                <div class="dice-setup">
+                    <div class="input-group">
+                        <label for="numDice">Number of Dice (1-4)</label>
+                        <input type="number" id="numDice" min="1" max="4" placeholder="1">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="numSides">Sides per Die (min 6)</label>
+                        <input type="number" id="numSides" min="6" placeholder="6">
+                    </div>
+                </div>
+
+                <button id="startGameButton" class="primary-button">Start Game</button>
+            </section>
+
+            <section id="game" class="game-section hidden">
+                <div class="game-status">
+                    <h2 id="currentPlayer" class="current-player"></h2>
+                </div>
+
+                <div id="diceContainer" class="dice-container"></div>
+
+                <div class="game-controls">
+                    <button id="rollButton" class="primary-button">Roll Dice</button>
+                    <button id="resetGameButton" class="secondary-button">New Game</button>
+                </div>
+
+                <div class="game-info">
+                    <div id="playersScores" class="scores-section"></div>
+                    <div id="history" class="history-section"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <!-- Music section -->
+    <audio id="backgroundMusic" loop autoplay>
+        <source src="music.ogg" type="audio/ogg">
+        <source src="music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
     <script src="script.js"></script>
 </body>
 </html>
